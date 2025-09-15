@@ -1,9 +1,13 @@
 import asyncio
 import datetime
 import argparse
+from dotenv import load_dotenv
 
 from research_workflow import run_research_async
 from utils import ensure_env_vars
+
+# Load local .env if present (safe no-op in production)
+load_dotenv(override=False)
 
 # Validate required environment variables once at startup
 try:

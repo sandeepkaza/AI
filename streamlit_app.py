@@ -2,17 +2,61 @@ import streamlit as st
 import datetime
 import os
 import json
+from dotenv import load_dotenv
 from utils import output_file
 
 from research_workflow import run_research_sync
 from utils import ensure_env_vars
 
 # ---------------------------------------------------------------------------
-# Streamlit UI
+# Environment and Streamlit UI
 # ---------------------------------------------------------------------------
+
+# Load local .env if present (no effect in containerized/managed envs)
+load_dotenv(override=False)
 
 st.set_page_config(
     page_title="Portfolio Research Assistant", page_icon="📈", layout="centered"
+)
+
+# Inject custom favicon with light/dark support and set dark theme based on OS
+st.markdown(
+        """
+        <script>
+            (function () {
+                try {
+                    var head = document.getElementsByTagName('head')[0];
+                    var favicon = document.getElementById('favicon');
+                    if (!favicon) {
+                        favicon = document.createElement('link');
+                        favicon.id = 'favicon';
+                        favicon.rel = 'shortcut icon';
+                        head.appendChild(favicon);
+                    }
+
+                    var lightIcon = "data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg clip-path='url(%23clip0_459_932)'%3E%3Cpath d='M11.4327 1.00388C9.64526 0.919753 8.14218 2.21231 7.88574 3.91533C7.87559 3.99436 7.86035 4.07085 7.84766 4.14733C7.44904 6.26845 5.59303 7.87459 3.3638 7.87459C2.5691 7.87459 1.82263 7.67064 1.17265 7.31372C1.09394 7.27038 1 7.32647 1 7.4157V7.87204V14.7479H7.84512V9.59291C7.84512 8.64452 8.61189 7.87459 9.5564 7.87459H11.2677C13.2049 7.87459 14.7639 6.2608 14.6877 4.29774C14.6191 2.53099 13.1922 1.08802 11.4327 1.00388Z' fill='black'/%3E%3C/g%3E%3Cdefs%3E%3CclipPath id='clip0_459_932'%3E%3Crect width='14' height='14' fill='white' transform='translate(1 1)'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E%0A";
+                    var darkIcon =  "data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg clip-path='url(%23clip0_459_963)'%3E%3Cpath d='M11.4327 1.00388C9.64526 0.919753 8.14218 2.21231 7.88574 3.91533C7.87559 3.99436 7.86035 4.07085 7.84766 4.14733C7.44904 6.26845 5.59303 7.87459 3.3638 7.87459C2.5691 7.87459 1.82263 7.67064 1.17265 7.31372C1.09394 7.27038 1 7.32647 1 7.4157V7.87204V14.7479H7.84512V9.59291C7.84512 8.64452 8.61189 7.87459 9.5564 7.87459H11.2677C13.2049 7.87459 14.7639 6.2608 14.6877 4.29774C14.6191 2.53099 13.1922 1.08802 11.4327 1.00388Z' fill='white'/%3E%3C/g%3E%3Cdefs%3E%3CclipPath id='clip0_459_963'%3E%3Crect width='14' height='14' fill='white' transform='translate(1 1)'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E%0A";
+
+                    function applyTheme() {
+                        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                        if (prefersDark) {
+                            document.documentElement.setAttribute('data-theme', 'dark');
+                            favicon.setAttribute('href', darkIcon);
+                        } else {
+                            document.documentElement.removeAttribute('data-theme');
+                            favicon.setAttribute('href', lightIcon);
+                        }
+                    }
+
+                    applyTheme();
+                    try {
+                        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
+                    } catch (e) {}
+                } catch (e) {}
+            })();
+        </script>
+        """,
+        unsafe_allow_html=True,
 )
 st.title("📈 Portfolio Research Assistant")
 
