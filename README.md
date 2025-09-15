@@ -107,3 +107,38 @@ settings.py          # Centralised defaults for models, timeouts, etc.
 ## License
 
 MIT
+
+---
+
+## Deploy to Render
+
+This repo includes a `Dockerfile` and `render.yaml` so you can deploy a Web Service on Render.
+
+Prerequisites:
+
+- A GitHub repo with this code pushed to `main` (or a branch of your choice)
+- A Render account (free tier works for testing)
+
+Steps:
+
+1. Commit the changes and push to GitHub:
+
+   ```powershell
+   git add .
+   git commit -m "Add Render deployment (Dockerfile, render.yaml, start.sh)"
+   git push origin main
+   ```
+
+2. In Render, click "New" -> "Blueprint" and select your repository. Render will auto-detect `render.yaml`.
+
+3. Set the following Environment Variables in the Render service:
+
+   - `OPENAI_API_KEY` (required)
+   - `FRED_API_KEY` (recommended for Macro agent)
+
+4. Click "Deploy". Render will build the Docker image and run the app. Once live, open the URL to access the Streamlit UI.
+
+Notes:
+
+- The service starts via `start.sh`, which runs: `streamlit run streamlit_app.py --server.address 0.0.0.0 --server.port $PORT`.
+- `outputs/` is ephemeral in Render; consider persisting to an external store if you need durable artifacts.

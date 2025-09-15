@@ -1,0 +1,17 @@
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.swp
+.env
+.git
+.gitignore
+outputs/
+*.png
+*.jpg
+*.jpeg
+*.pdf
+*.csv
+*.json
+.idea/
+.vscode/

@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: portfolio-research
+    runtime: docker
+    plan: starter
+    autoDeploy: true
+    healthCheckPath: /
+
+    # Optional environment variables (set these in Render dashboard as well)
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: FRED_API_KEY
+        sync: false
