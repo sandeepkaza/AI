@@ -10,17 +10,16 @@ WORKDIR /app
 
 # Copy requirements and install
 # System dependencies for scientific stack (numpy/scipy/cvxpy) and tools
-RUN apt-get update && \
-	DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-		build-essential \
-		gfortran \
-		libatlas-base-dev \
-		libopenblas-dev \
-		liblapack-dev \
-		git \
-		ca-certificates \
-		curl && \
-	rm -rf /var/lib/apt/lists/*
+RRUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    gfortran \
+    libatlas-base-dev \
+    libopenblas-dev \
+    liblapack-dev \
+    git \
+    ca-certificates \
+    curl && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt ./requirements.txt
 RUN pip install -r requirements.txt
