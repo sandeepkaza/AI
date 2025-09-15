@@ -16,3 +16,4 @@ pydantic
 streamlit
 markdown-pdf
 markdown
+python-dotenv

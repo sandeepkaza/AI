@@ -29,9 +29,9 @@ RUN pip install -r requirements.txt
 COPY . .
 
 # Optional: Load env vars if using python-dotenv in app
-RUN pip install python-dotenv && \
-	chmod +x /app/start.sh
+RUN true
 
-# Default command runs Streamlit bound to $PORT for Render
-EXPOSE 8000
-CMD ["/app/start.sh"]
+# Default command runs Streamlit bound to $PORT (Render injects $PORT)
+EXPOSE 8501
+ENV PORT=8501
+CMD ["sh", "-lc", "streamlit run streamlit_app.py --server.port ${PORT} --server.address 0.0.0.0 --server.enableCORS false --server.enableXsrfProtection false --browser.gatherUsageStats false"]

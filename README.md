@@ -110,9 +110,9 @@ MIT
 
 ---
 
-## Deploy to Render
+## Deploy to Render (Dockerfile-only)
 
-This repo includes a `Dockerfile` and `render.yaml` so you can deploy a Web Service on Render.
+This repo deploys to Render using only the `Dockerfile` (no blueprint).
 
 Prerequisites:
 
@@ -129,7 +129,7 @@ Steps:
    git push origin main
    ```
 
-2. In Render, click "New" -> "Blueprint" and select your repository. Render will auto-detect `render.yaml`.
+2. In Render, click "New" -> "Web Service", pick your repository, and choose Environment: Docker. Render will use the Dockerfile.
 
 3. Set the following Environment Variables in the Render service:
 
@@ -140,5 +140,5 @@ Steps:
 
 Notes:
 
-- The service starts via `start.sh`, which runs: `streamlit run streamlit_app.py --server.address 0.0.0.0 --server.port $PORT`.
+- The service starts via the `Dockerfile` CMD: `streamlit run streamlit_app.py --server.address 0.0.0.0 --server.port $PORT`.
 - `outputs/` is ephemeral in Render; consider persisting to an external store if you need durable artifacts.

@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+
+# VS Code / IDE
+.vscode/
+.idea/
+
+# Environment & secrets
+.env
+
+# Outputs & large artifacts
+outputs/
+*.pdf
+*.png
+*.jpg
+*.jpeg
+*.csv
+*.json
+
+# Node & miscellaneous
+node_modules/
+dist/
+build/
